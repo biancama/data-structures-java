@@ -25,4 +25,12 @@ public class InsertionSortTest {
 		Integer[] actualArray = InsertionSort.sort(unsortedArray);
 		assertThat(actualArray, is(expectedArray));
 	}
+
+	@Test
+	public void givenAnUnsortedArrayThenTheAlgorithmReturnItBackSorted03() {
+		Integer[] unsortedArray = {8, 7, 6, 5, 4, 3, 2, 1, 1, 3};
+		Integer[] expectedArray = {1, 1, 2, 3, 3, 4, 5, 6, 7, 8};
+		Integer[] actualArray = InsertionSort.sort(unsortedArray);
+		assertThat(actualArray, is(expectedArray));
+	}
 }
