@@ -1,6 +1,10 @@
 package org.biancama.algorithms.sort;
 
-import static org.biancama.algorithms.utils.ArraysUtils.swap;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Collections.swap;
+import static org.apache.commons.collections.CollectionUtils.addAll;
 
 /**
  * Created by massimo on 23/04/16.
@@ -18,19 +22,21 @@ public class BubbleSort {
 	 * @param unsorted
 	 * @return
 	 */
-	public static <T extends Comparable<? super T>> T[] sort(T[] unsorted) {
+	public static <T extends Comparable<? super T>> List<T> sort(final List<T> unsorted) {
 		boolean swapped = true;
-		int n = unsorted.length - 1;
+		int n = unsorted.size() - 1;
+		List<T> result = new ArrayList<>(unsorted.size());
+		addAll(result, unsorted.iterator());
 		while (swapped) {
 			swapped = false;
 			for (int i = 0; i < n; i++) {
-				if (unsorted[i + 1].compareTo(unsorted[i]) < 0) {
-					swap(unsorted, i, i+1);
+				if (result.get(i + 1).compareTo(result.get(i)) < 0) {
+					swap(result, i, i+1);
 					swapped = true;
 				}
 			}
 			n -= 1;
 		}
-		return unsorted;
+		return result;
 	}
 }

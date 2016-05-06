@@ -1,6 +1,10 @@
 package org.biancama.algorithms.sort;
 
-import static org.biancama.algorithms.utils.ArraysUtils.swap;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Collections.swap;
+import static org.apache.commons.collections.CollectionUtils.addAll;
 
 /**
  * Created by massimo on 27/04/16.
@@ -16,18 +20,20 @@ public class SelectionSort {
 	 * @param unsorted
 	 * @return
 	 */
-	public static <T extends Comparable<? super T>> T[] sort(T[] unsorted) {
-		int n = unsorted.length;
+	public static <T extends Comparable<? super T>> List<T> sort(final List<T> unsorted) {
+		int n = unsorted.size();
+		List<T> result = new ArrayList<>(unsorted.size());
+		addAll(result, unsorted.iterator());
 		for (int k = 0; k < n; k++) {
 			int minIndex = k;
 			for (int i = k + 1; i < n; i++) {
-				if (unsorted[i].compareTo(unsorted[minIndex]) < 0) {
+				if (result.get(i).compareTo(result.get(minIndex)) < 0) {
 					minIndex = i;
 				}
 			}
-			swap(unsorted, k, minIndex);
+			swap(result, k, minIndex);
 		}
-		return unsorted;
+		return result;
 	}
 
 }
