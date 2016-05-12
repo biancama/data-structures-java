@@ -56,9 +56,9 @@ public class QuickSort {
 		T first = result.get(0);
 		T last = result.get(result.size() - 1);
 		T center = result.get(result.size()/2);
-		if (center.compareTo(first) >= 0 &&  center.compareTo(last) <= 0 ) {
+		if (center.compareTo(first) >= 0 &&  center.compareTo(last) <= 0 || center.compareTo(first) <= 0 &&  center.compareTo(last) >= 0) {
 			return center;
-		} else if (first.compareTo(center) >= 0 &&  first.compareTo(last) <= 0 ) {
+		} else if (first.compareTo(center) >= 0 &&  first.compareTo(last) <= 0 || first.compareTo(center) <= 0 &&  first.compareTo(last) >= 0 ) {
 			return first;
 		} else {
 			return last;
