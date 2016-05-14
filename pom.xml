@@ -33,5 +33,15 @@
               <artifactId>commons-collections</artifactId>
               <version>3.2.2</version>
           </dependency>
+          <dependency>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.16.8</version>
+          </dependency>
+          <dependency>
+              <groupId>org.jetbrains</groupId>
+              <artifactId>annotations-java5</artifactId>
+              <version>RELEASE</version>
+          </dependency>
       </dependencies>
     </project>
