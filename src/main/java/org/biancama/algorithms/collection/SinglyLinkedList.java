@@ -1,4 +1,4 @@
-package org.biancama.algorithms.iterable;
+package org.biancama.algorithms.collection;
 
 import lombok.AllArgsConstructor;
 
