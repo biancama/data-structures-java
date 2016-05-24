@@ -5,17 +5,16 @@ import lombok.AllArgsConstructor;
 import java.util.Iterator;
 
 /**
- * Created by massimo on 13/05/16.
+ * Created by massimo on 24/05/16.
  */
-
-public class SinglyLinkedList<E> implements List<E> {
-
+public class DoublyLinkedList<E> implements List<E> {
 	private int size = 0;
-	private Node<E> head = null;
+	Node<E> head;
+
 	@AllArgsConstructor
 	private static class Node<E> {
 		private E elem;
-		private Node<E> next;
+		Node<E> prev, next;
 	}
 
 	private static<E> Node<E> getNode(int position, final Node<E> pointer) {
@@ -25,7 +24,6 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 		return internalPointer;
 	}
-
 	@Override
 	public int size() {
 		return size;
@@ -64,16 +62,18 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 		size++;
 		if (i == 0) {
-			Node<E> newElem = new Node<>(e, head);
+			Node<E> newElem = new Node<>(e, null, head);
+			if (head != null) {
+				head.prev = newElem;
+			}
 			head = newElem;
+
 		} else {
 			Node<E> pointer = getNode(i-1, head);
-			Node<E> newElem = new Node<>(e, pointer.next);
+			Node<E> newElem = new Node<>(e, pointer,  pointer.next);
 			pointer.next =  newElem;
 		}
 	}
-
-
 
 	@Override
 	public E remove(int i) throws IndexOutOfBoundsException {
@@ -85,12 +85,20 @@ public class SinglyLinkedList<E> implements List<E> {
 		if (i == 0) {
 			head = head.next;
 			pointer.next = null;
+			pointer.prev = null;
+			if (head != null) {
+				head.prev = null;
+			}
 			return pointer.elem;
 		} else {
 			pointer = getNode(i-1, head);
 			Node<E> pointerApp = pointer.next;
 			pointer.next =  pointer.next.next;
+			if (pointerApp.next != null) {
+				pointerApp.next.prev = pointer;
+			}
 			pointerApp.next = null;
+			pointerApp.prev = null;
 			return pointerApp.elem;
 		}
 	}
@@ -116,7 +124,6 @@ public class SinglyLinkedList<E> implements List<E> {
 				return result;
 			}
 		};
-
 	}
 
 	@Override
@@ -128,12 +135,9 @@ public class SinglyLinkedList<E> implements List<E> {
 	public E last() {
 		if (head == null) {
 			return null;
+		} else {
+			return getNode(size - 1, head).elem;
 		}
-		Node<E> pointer = head;
-		while (pointer.next != null) {
-			pointer = pointer.next;
-		}
-		return pointer.elem;
 	}
 
 	@Override
