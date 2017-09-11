@@ -1,8 +1,9 @@
 package org.biancama.algorithms.stack;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 import org.junit.Test;
 
-import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
  * Created by massimo on 24/09/16.
