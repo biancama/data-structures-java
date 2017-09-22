@@ -47,49 +47,37 @@ public class KnapSack {
     }
 
     private void compute() {
-        for (int i = 0; i < 1; i++) {
-            for (int j = 1; j < maxWeight + 1; j++) {
-                if (j < weights.get(i)) {
-                    computedValues[i][j] = 0;
-                    include[i][j] = false;
-                } else {
-                    computedValues[i][j] = values.get(i);
-                    updateSolution(computedValues[i][j]);
-                    include[i][j] = true;
-                }
-            }
-        }
 
-        for (int i = 1; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             for (int j = 1; j < maxWeight + 1; j++) {
                 if (j < weights.get(i)) {
-                    computedValues[i][j] = computedValues[i -1][j];
+                    computedValues[i][j] = computedValues[Math.max(i -1, 0)][j];
                     include[i][j] = false;
                 } else {
-                    computedValues[i][j] = Math.max(computedValues[i -1][j], values.get(i) + computedValues[i-1][j - weights.get(i)]) ;
-                    updateSolution(computedValues[i][j]);
-                    include[i][j] = computedValues[i][j] != computedValues[i -1][j];
+                    computedValues[i][j] = Math.max(computedValues[Math.max(i -1, 0)][j], values.get(i) + computedValues[Math.max(i -1, 0)][j - weights.get(i)]) ;
+                    include[i][j] = updateSolution(computedValues[i][j]);
                 }
             }
         }
     }
 
-    private void updateSolution(int i) {
+    private boolean updateSolution(int i) {
+        boolean updated = solution != i;
         solution = Math.max(solution, i);
+        return updated;
     }
 
     public List<Integer> getOptimalChoice() {
         List<Integer> result = new ArrayList<>();
         int w = maxWeight;
-        while (w > 0) {
-            for (int i = n-1; i >= 0; i--) {
-                if (include[i][w]) {
-                    result.add(i);
-                    w -= weights.get(i);
-                    break;
-                }
+
+        for (int i = n-1; i >= 0; i--) {
+            if (include[i][w]) {
+                result.add(i);
+                w -= weights.get(i);
             }
         }
+
 
         return result;
     }
