@@ -18,6 +18,8 @@ public class KnapSack {
 
     private int n;
 
+    private boolean isDone = false;
+
     private int[][] computedValues;
 
     private boolean[][] include;
@@ -42,7 +44,9 @@ public class KnapSack {
     }
 
     public int getOptimalValue() {
-        compute();
+        if (!isDone) {
+            compute();
+        }
         return solution;
     }
 
@@ -59,6 +63,7 @@ public class KnapSack {
                 }
             }
         }
+        isDone = true;
     }
 
     private boolean updateSolution(int i) {
@@ -68,6 +73,9 @@ public class KnapSack {
     }
 
     public List<Integer> getOptimalChoice() {
+        if (!isDone) {
+            compute();
+        }
         List<Integer> result = new ArrayList<>();
         int w = maxWeight;
 
