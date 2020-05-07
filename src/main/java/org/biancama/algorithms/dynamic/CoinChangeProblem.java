@@ -1,5 +1,9 @@
 package org.biancama.algorithms.dynamic;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -54,5 +58,31 @@ public class CoinChangeProblem {
         }
 
         return m_1[amount];
+    }
+
+    public Set<List<Integer>> solutionSet() {
+        List<Integer> possibilities = new ArrayList<>(coins);
+        return solutionSet(new ArrayList<>(), amount, possibilities);
+    }
+    public Set<List<Integer>> solutionSet(List<Integer> result, int amount, List<Integer> possibilities) {
+        if (amount == 0) {
+            Set<List<Integer>> partialResult = new HashSet<>();
+            partialResult.add(result);
+            return partialResult;
+        } else if (amount < 0 || possibilities.isEmpty()) {
+            return new HashSet<>();
+        } else {
+            var firstCoin = possibilities.get(0);
+            var possibilitiesWithFirstCoin = new ArrayList<>(possibilities);
+            var possibilitiesWithoutFirstCoin = new ArrayList<>(possibilities);
+            possibilitiesWithoutFirstCoin.remove(0);
+            var resultWithFirstCoin = new ArrayList<>(result);
+            var resultWithoutFirstCoin = new ArrayList<>(result);
+            resultWithFirstCoin.add(firstCoin);
+            var solutionWithFirstCoin = solutionSet(resultWithFirstCoin, amount - firstCoin, possibilitiesWithFirstCoin);
+            var solutionWithoutFirstCoin = solutionSet(resultWithoutFirstCoin, amount, possibilitiesWithoutFirstCoin);
+            solutionWithFirstCoin.addAll(solutionWithoutFirstCoin);
+            return new HashSet<>(solutionWithFirstCoin);
+        }
     }
 }
