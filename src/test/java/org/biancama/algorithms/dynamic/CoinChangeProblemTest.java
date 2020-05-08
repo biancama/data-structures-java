@@ -57,6 +57,22 @@ public class CoinChangeProblemTest {
         checkSolution(expectedSolutionSets, actualSolutionSets);
     }
 
+    @Test
+    public void test07() {
+        CoinChangeProblem coinChangeProblem = new CoinChangeProblem(5, new HashSet<Integer>(){{add(1);add(2);add(5);}});
+        Set<List<Integer>> expectedSolutionSets = Set.of(asList(1, 1, 1, 1, 1), asList(1, 1, 1, 2), asList(1, 2, 2), asList(5));
+        Set<List<Integer>> actualSolutionSets = coinChangeProblem.solutionSetWithMemoization();
+        checkSolution(expectedSolutionSets, actualSolutionSets);
+    }
+
+    @Test
+    public void test08() {
+        CoinChangeProblem coinChangeProblem = new CoinChangeProblem(5, new HashSet<Integer>(){{add(1);add(2);add(3);}});
+        Set<List<Integer>> expectedSolutionSets = Set.of(asList(1, 1, 1, 1, 1), asList(1, 1, 1, 2), asList(1, 2, 2), asList(1, 1, 3), asList(2, 3));
+        Set<List<Integer>> actualSolutionSets = coinChangeProblem.solutionSetWithMemoization();
+        checkSolution(expectedSolutionSets, actualSolutionSets);
+    }
+
     private void checkSolution(Set<List<Integer>> expectedSolutionSets, Set<List<Integer>> actualSolutionSets) {
         assertThat(actualSolutionSets.size()).isEqualTo(expectedSolutionSets.size());
         // for comparing I need to sort
