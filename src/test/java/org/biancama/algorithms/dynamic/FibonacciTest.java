@@ -1,12 +1,8 @@
 package org.biancama.algorithms.dynamic;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import org.assertj.core.api.AssertionsForInterfaceTypes;
 import org.junit.Test;
-
-import java.util.List;
 
 public class FibonacciTest {
 
@@ -26,5 +22,12 @@ public class FibonacciTest {
         assertThat(FibonacciProblem.fibonacciRecursiveMemoizationAnUseOfCallStack(6)).isEqualTo(8);
         assertThat(FibonacciProblem.fibonacciRecursiveMemoizationAnUseOfCallStack(7)).isEqualTo(13);
         assertThat(FibonacciProblem.fibonacciRecursiveMemoizationAnUseOfCallStack(12)).isEqualTo(144);
+    }
+
+    @Test
+    public void test04() {
+        assertThat(FibonacciProblem.fibonacciDynamic(6)).isEqualTo(8);
+        assertThat(FibonacciProblem.fibonacciDynamic(7)).isEqualTo(13);
+        assertThat(FibonacciProblem.fibonacciDynamic(12)).isEqualTo(144);
     }
 }

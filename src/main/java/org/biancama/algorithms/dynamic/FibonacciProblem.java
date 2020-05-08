@@ -4,10 +4,7 @@ import org.biancama.algorithms.stack.CallStack;
 import org.biancama.algorithms.tuple.Tuple;
 import org.biancama.algorithms.tuple.Unit;
 
-import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class FibonacciProblem {
@@ -66,6 +63,20 @@ public class FibonacciProblem {
             }
         }
         return callStack.getLastReturn();
+    }
+
+    public static int fibonacciDynamic(int n) {
+        if (n == 0 || n == 1) {
+            return n;
+        } else {
+            int[] array = new int[n + 1];
+            array[0] = 0;
+            array[1] = 1;
+            for (int i = 2; i < n + 1; i++) {
+                array[i] = array[i - 1] + array[i - 2];
+            }
+            return array[n];
+        }
     }
 }
 
